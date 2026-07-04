@@ -1,0 +1,39 @@
+name: Funnel Link Signup Notification
+
+on:
+repository_dispatch:
+types:
+- funnel_link_signup
+
+jobs:
+notify:
+runs-on: ubuntu-latest
+
+steps:
+  - name: Extract Signup Data
+    id: signup
+    run: |
+      echo "EMAIL=${{ github.event.client_payload.email }}" >> $GITHUB_ENV
+      echo "PHONE=${{ github.event.client_payload.phone }}" >> $GITHUB_ENV
+      echo "NAME=${{ github.event.client_payload.name }}" >> $GITHUB_ENV
+
+  - name: Send Email Notification
+    run: |
+      curl --request POST \
+        --url https://api.brevo.com/v3/smtp/email \
+        --header "accept: application/json" \
+        --header "content-type: application/json" \
+        --header "api-key: ${{ secrets.BREVO_API_KEY }}" \
+        --data "{
+          \"sender\": {
+            \"name\": \"Funnel Link\",
+            \"email\": \"${{ secrets.SENDER_EMAIL }}\"
+          },
+          \"to\": [
+            {
+              \"email\": \"${{ secrets.ALERT_EMAIL }}\"
+            }
+          ],
+          \"subject\": \"New Funnel Link Signup\",
+          \"htmlContent\": \"<h2>New Signup Received</h2><p><strong>Name:</strong> ${NAME}</p><p><strong>Email:</strong> ${EMAIL}</p><p><strong>Phone:</strong> ${PHONE}</p>\"
+        }"

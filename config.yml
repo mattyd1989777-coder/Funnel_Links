@@ -1,0 +1,26 @@
+app:
+  name: Funnel Link
+  version: 1.0.0
+
+newsletter:
+  provider: brevo
+  sender_email: alerts@yourdomain.com
+  admin_email: mattyd1989777@gmail.com
+  double_opt_in: true
+
+signup:
+  collect_email: true
+  collect_phone: true
+  require_confirmation: true
+
+storage:
+  type: google_sheets
+  worksheet: Leads
+
+notifications:
+  email_alerts: true
+  new_signup_subject: "New Funnel Link Signup"
+
+security:
+  rate_limit: 10
+  captcha_enabled: false
