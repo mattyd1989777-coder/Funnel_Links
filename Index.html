@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+I'm<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -305,5 +305,41 @@ hash |= 0;
 return "FLX-" + Math.abs(hash);
 }
 </script>
+  <script>
+  const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbxx74hchnVgsUF5IlfOWb5_wGGr8OmXtDdgOHUiCDZT/exec";
+
+async function submitToSwitchboard(){
+
+const email = document.getElementById("email").value;
+const phone = document.getElementById("phone").value;
+const name = document.getElementById("name").value;
+
+const payload = {
+email,
+phone,
+name,
+channel_title:"Web_Cast",
+schedule:"AUTO",
+schedule_links:"",
+downline_links:"",
+qr:"",
+page_link:location.href,
+profile_image:"https://picsum.photos/400",
+background:"",
+bg_view:"",
+primary_link:"",
+secondary_link:"",
+key: generateSwitchKey(email, phone, name)
+};
+
+await fetch(SCRIPT_URL,{
+method:"POST",
+body: JSON.stringify(payload)
+});
+
+alert("Saved to Switchboard ✔");
+}
+  </script>
 </body>
 </html>
