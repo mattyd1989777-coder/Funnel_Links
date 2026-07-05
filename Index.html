@@ -341,5 +341,78 @@ body: JSON.stringify(payload)
 alert("Saved to Switchboard ✔");
 }
   </script>
+  <script>
+    function sendVerificationCode(email){
+
+const code = Math.random().toString(36).substring(2,8).toUpperCase();
+
+CacheService.getScriptCache().put(email, code, 600);
+
+/* send email */
+MailApp.sendEmail(email,
+"Your Funnel Login Code",
+"Your verification code is: " + code
+);
+
+return json({status:"code_sent"});
+    }
+  </script>
+  <script>
+    function logLogin(email, success){
+
+const sheet = SpreadsheetApp.getActiveSpreadsheet()
+.getSheetByName("LoginHistory");
+
+const ip = "UNKNOWN"; // Apps Script does not reliably expose IP
+
+sheet.appendRow([
+new Date(),
+email,
+ip,
+success
+]);
+
+    }
+    <script>
+      function savePasskey(email, credential){
+
+const sheet = SpreadsheetApp.getActiveSpreadsheet()
+.getSheetByName("Devices");
+
+sheet.appendRow([
+email,
+JSON.stringify(credential),
+new Date()
+]);
+
+return json({status:"passkey_saved"});
+      }
+    <script>
+      function evaluateRisk(email, ip, device){
+
+const sheet = SpreadsheetApp.getActiveSpreadsheet()
+.getSheetByName("LoginHistory");
+
+const rows = sheet.getDataRange().getValues();
+
+let last = rows.reverse().find(r => r[1] === email);
+
+if(!last) return "NEW_DEVICE";
+
+if(last[2] !== ip) return "IP_CHANGED";
+
+return "OK";
+      }
+  </script>
+  <script>
+    function openProfile(profileID){
+
+const url =
+"https://mattyd1989777-coder.github.io/Funnel_Links/?profile="
++ profileID;
+
+window.location.href = url;
+    }
+  </script>
 </body>
 </html>
