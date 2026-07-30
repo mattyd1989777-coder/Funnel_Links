@@ -1,418 +1,1361 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Funnel Link Profile</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Funnel Link</title>
 
 <style>
-body{
+
+*{
 margin:0;
-font-family:Arial;
-background:#0b0b0b;
-color:#fff;
-overflow-x:hidden;
-transition:0.4s;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
 
-body.visual{
-background:#000;
+body{
+background:#111;
+color:#fff;
+ width:98%
 }
 
 /* TOP BAR */
+
 .topbar{
+
+display:flex;
+align-items:center;
+gap:6px;
+
+padding:8px;
+
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(10px);
+
 position:sticky;
 top:0;
-display:flex;
-gap:10px;
-padding:10px;
-background:#111;
-border-bottom:1px solid #222;
-align-items:center;
-z-index:10;
+
+z-index:100;
+
 }
 
-#clock{color:#00e5ff;min-width:90px;font-size:14px}
+#clock{
+min-width:12px;
+font-size:12px;
+}
 
 #search{
 flex:1;
+
 padding:10px;
-border-radius:10px;
+
 border:none;
-background:#222;
-color:#fff;
+border-radius:10px;
+
+background:rgba(255,255,255,.15);
+
+color:white;
+
 }
 
-#modeBtn, #login{
-background:none;
-color:#00e5ff;
+.iconBtn{
+
+padding:10px 14px;
+
 border:none;
-cursor:pointer;
+
+border-radius:10px;
+
+background:rgba(255,255,255,.15);
+
+color:white;
+
 }
 
 /* CHANNEL BAR */
-#channels{
+
+.channelWrapper{
+
 display:flex;
-gap:10px;
+
+align-items:center;
+
+gap:8px;
+
+padding:6px;
+
+}
+
+.arrow{
+
+font-size:24px;
+
+cursor:pointer;
+
+padding:5px 12px;
+
+}
+.channelBar{
+flex:1;
+display:flex;
 overflow-x:auto;
-padding:10px;
-background:#0f0f0f;
-border-bottom:1px solid #222;
-justify-content:center;
+gap:8px;
+scroll-behavior:smooth;
+scroll-snap-type:x mandatory;
+-webkit-overflow-scrolling:touch;
+scrollbar-width:none;
+}
+
+.channelBar::-webkit-scrollbar{
+display:none;
+
 }
 
 .channel{
-cursor:pointer;
-font-size:18px;
-white-space:nowrap;
-}
-
-/* CARD */
-.card{
-max-width:500px;
-margin:20px auto;
-background:rgba(255,255,255,0.06);
-backdrop-filter:blur(10px);
-padding:20px;
-border-radius:20px;
-text-align:center;
-}
-
-/* MEDIA */
-#mediaBox{
-width:80%;
-aspect-ratio:1/1;
-margin:10px auto;
-border-radius:20px;
-overflow:hidden;
-position:relative;
-border:2px solid #00e5ff;
-background:#111;
-}
-
-#img{
-width:100%;
-height:100%;
-object-fit:cover;
-position:absolute;
-}
-
-#hexPanel{
-display:none;
-position:absolute;
-inset:0;
-background:#111;
-padding:10px;
-font-size:12px;
-overflow:auto;
-}
-
-body.visual #hexPanel{
+min-width:98%;
+scroll-snap-align:center;
 display:flex;
-flex-direction:column;
-}
-
-body.visual #img{
-opacity:0;
-}
-
-/* VISUAL MODE HIDE UI */
-body.visual .card,
-body.visual #channels,
-body.visual .topbar{
-display:none !important;
-}
-
-/* QR */
-#qr{
-display:none;
-position:absolute;
-inset:0;
-align-items:center;
 justify-content:center;
-background:#000;
+align-items:center;
+padding:8px;
+border-radius:20px;
+font-size:18px;
+font-weight:bold;
+background-color:none;
 }
 
-#qr img{
+/* STACK */
+
+.stack{
+
+display:flex;
+
+justify-content:center;
+
+gap:8px;
+
+padding:8px;
+
+opacity:.8;
+
+}
+
+.stack div{
+
+padding:8px 12px;
+
+border-radius:15px;
+
+background:#333;
+
+}
+
+/* PROFILE */
+
+.profile{
+
+width:75%;
+
+max-width:500px;
+
+margin:12px auto;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(10px);
+
+padding:14px;
+
+border-radius:20px;
+
+text-align:center;
+
+}
+
+#profileImg{
+
+width:65%;
+hieght:65%;
+
+aspect-ratio:1;
+
+border-radius:20px;
+
+object-fit:cover;
+
+}
+
+.btn{
+
+display:block;
+
+margin:12px auto;
+
+padding:14px;
+
+border-radius:12px;
+
+text-decoration:none;
+
+width:90%;
+
+}
+
+.primary{
+
+background:#ddd;
+
+color:#111;
+
+}
+
+.secondary{
+
+background:#888;
+
+color:white;
+
+}
+ #modeBtn{
+  width:34px;
+  height:24px;
+  Border-radius:5px;
+  background-color:white;
+ }
+
+/* DOWNLINES */
+
+.downlines{
+
+display:flex;
+
+justify-content:center;
+
+gap:12px;
+
+margin-top:20px;
+
+}
+
+.down{
+
+width:80px;
+
+height:80px;
+
+border-radius:15px;
+
+background:#444;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+}
+ .settingsBtn{
+width:30px;
+height:30px;
+border-radius:50%;
+font-size:20px;
+text-color:white;
+z-index:5000;
+}
+
+.settings-overlay{
+position:fixed;
+top:0;
+left:0;
 width:100%;
 height:100%;
-object-fit:contain;
+background:rgba(0,0,0,.65);
+backdrop-filter:blur(10px);
+display:none;
+justify-content:flex-end;
+z-index:9999;
 }
 
-/* BUTTONS */
-.btn{
-display:block;
-margin:10px auto;
+.settings-overlay.active{
+display:flex;
+}
+
+.settings-panel{
+width:420px;
+max-width:100%;
+height:100%;
+overflow:auto;
+background:#111;
+padding:25px;
+}
+
+.settings-panel input,
+.settings-panel textarea{
+width:100%;
+margin:8px 0;
 padding:12px;
 border-radius:10px;
-text-decoration:none;
-width:90%;
+background:#222;
+color:white;
+border:1px solid #444;
 }
 
-.primary{background:#00e5ff;color:#000}
-.secondary{background:#ff00d4;color:#fff}
+.close-btn{
+float:right;
+font-size:22px;
+}
+
+/* NAV */
+
+.bottomNav{
+display:flex;
+
+justify-content:space-between;
+
+padding:20px;
+
+}
+  
+ .stackItem.active{
+  background:#666;
+  transform: scale(1.03);
+}
+
+
 </style>
 </head>
 
 <body>
 
 <div class="topbar">
+
 <div id="clock"></div>
-<input id="search" placeholder="Search Funnels"/>
-<button id="modeBtn">Visual Mode</button>
-<button id="login">Login</button>
-</div>
-<img href="https://github.com/mattyd1989777-coder/Funnel_Link-_Generator/tree/main/1781417085778.png">
-<div id="channels"></div>
 
-<div class="card">
+<button class="settingsBtn">⚙</button>
 
-<div id="visitors">Visitors: 0</div>
+<input id="search"
+placeholder="Search #game_link #MovieLinks">
 
-<div id="mediaBox" ondblclick="toggleMedia()">
+<button id="modeBtn">
 
-<img id="img" src="https://picsum.photos/300"/>
+Login
 
-<div id="hexPanel">
-<div id="hexBox"></div>
-<div id="qr"></div>
-</div>
+</button>
 
 </div>
 
-<h2 id="name">User</h2>
-<p>Live Funnel</p>
+<div  class="settings-overlay">
 
-<a class="btn primary">Visit Funnel</a>
-<a class="btn secondary">Instagram</a>
+<button class="close-btn" onclick="closeSettings()">✕</button>
+
+<h1>Funnel Link Settings</h1>
+
+<!-- Theme -->
+
+<h2>Theme</h2>
+
+<label>Primary Color</label>
+<input type="color" id="primary">
+
+<label>Secondary Color</label>
+<input type="color" id="secondary">
+
+<label>Background</label>
+<input type="color" id="background">
+
+<label>Card</label>
+<input type="color" id="card">
+
+<label>Text</label>
+<input type="color" id="text">
+
+<label>Gray</label>
+<input type="color" id="gray">
+
+<label>Glass Transparency</label>
+<input type="range" id="glass" min="0" max="1" step=".05">
+
+<label>Frost Transparency</label>
+<input type="range" id="frost" min="0" max="1" step=".05">
+
+<hr>
+
+<h2>Profile</h2>
+
+<input id="profileName" placeholder="Profile Name">
+
+<input id="profilePicture" placeholder="Profile Picture URL">
+
+<input id="backgroundImage" placeholder="Background Image URL">
+
+<input id="schedule" placeholder="Schedule">
+
+<input id="scheduleLink" placeholder="Schedule Link">
+
+<input id="primaryButton" placeholder="Primary Button Link">
+
+<hr>
+
+<h2>Media</h2>
+
+<input id="videoLink" placeholder="Video URL">
+
+<input id="mp3Link" placeholder="Podcast / MP3 URL">
+
+<input id="livestreamLink" placeholder="Live Stream URL">
+
+<input id="discordLink" placeholder="Discord Invite">
+
+<input id="slackLink" placeholder="Slack Workspace">
+
+<hr>
+
+<h2>NFT</h2>
+
+<input id="openseaCollection" placeholder="OpenSea Collection URL">
+
+<input id="magicedenCollection" placeholder="Magic Eden URL">
+
+<input id="raribleCollection" placeholder="Rarible URL">
+
+<hr>
+
+<button onclick="saveTheme()">Save</button>
+
+<button onclick="loadTheme()">Load</button>
+
+<button onclick="resetTheme()">Reset</button>
 
 </div>
 
+</div>
+
+<div class="channelWrapper">
+
+<div class="arrow">&lt;</div>
+
+<div class="channelBar" id="channelBar">
+  <!-- anything #___Links, should be searchable, only one #___Links viewable per scroll,swipe scroll bar to change channel -->
+<div class="channel">#WebLinks</div>
+<div class="channel">#GameLinks</div>
+<div class="channel">#MovieLinks</div>
+<div class="channel">#PodcastLinks</div>
+<div class="channel">#MusicLinks</div>
+<div class="channel">#MapLinks</div>
+<div class="channel">#JobLinks</div>
+<div class="channel">#PrivateLinks</div>
+
+</div>
+
+<div class="arrow">&gt;</div>
+
+</div>
+  
+<!--
+<div class="stack"> -->
+  <!-- Auto cycle sponsors after downlines   -->
+  <!--<div>Sponsors</div>-->
+  <!--Auto cycle Partners After My channels -->
+  <!--<div>Partners</div>-->
+  <!-- gesture swipe left and right in profile class container area, to cycle through My Channels (or My funnel_Link stacks) -->
+  <!--<div>My Channels</div>-->
+  <!-- gesture swipe up and down in profile class container area to cycle through Downlines -->
+  <!--<div>Downlines</div>
+  </div> 
+  -->
+
+<div class="profile">
+  <!-- press down and swipe Followers div to activate screen x,y area press downs for day, week, and month. look should resemble hot areas with number of presses in feild containers background or buttons press ans swipe to change view until normal view press buttons follow funnel  -->
+  
+<div>
+Followers
+<h2 id="followers">
+  <!--double press numbers to download pdf of the day week or month followers view numbers only in followers mode --></!--press-->
+2431
+</h2>
+</div>
+
+<!-- press any button to book mark page ( buttons open new window ) double tap hold to unbook mark, press down and swipe up on profile image to view qr code (only view stored qr code if available then changing qr code never plublic personal code )-->
+<img
+id="profileImg"
+src="https://picsum.photos/500">
+
+<h2>
+
+John Doe
+
+</h2>
+
+<p>
+
+Game_Link
+
+</p>
+
+<p>
+
+Showtime
+
+03:42:21
+
+</p>
+
+<a
+href="#"
+class="btn primary">
+
+Visit Website
+
+</a>
+
+<a
+href="#"
+class="btn secondary">
+
+Instagram
+
+</a>
+  <!--
+
+<div class="downlines">
+
+<div class="down">
+
+A
+
+</div>
+
+<div class="down">
+
+B
+
+</div>
+
+<div class="down">
+
+C
+
+</div>
+  -->
+
+</div>
+
+</div>
+
+<div class="bottomNav">
+  <!--
+<div>
+
+◀ Previous
+
+</div>
+
+<div>
+
+Next ▶
+
+</div>
+-->
+</div>
 <script>
-let mode="normal";
-let isLoggedIn=false;
-let showQR=false;
-let lastTap=0;
+document.addEventListener("DOMContentLoaded", () => {
+  const bar = document.getElementById("channelBar");
+  const arrows = document.querySelectorAll(".arrow");
+  const search = document.getElementById("search");
+  const modeBtn = document.getElementById("modeBtn");
+  const clock = document.getElementById("clock");
 
-/* CLOCK */
-setInterval(()=>{
-document.getElementById("clock").innerText=
-new Date().toLocaleTimeString();
-},1000);
+  // Clock
+  const updateClock = () => {
+    clock.textContent = new Date().toLocaleTimeString();
+  };
+  updateClock();
+  setInterval(updateClock, 1000);
 
-/* LOGIN */
-document.getElementById("login").onclick=()=>{
-isLoggedIn=true;
-alert("Logged in");
-};
+  // Topbar mode toggle
+  let visual = false;
+  modeBtn.addEventListener("click", () => {
+    visual = !visual;
+    modeBtn.innerHTML = visual ? "Exit" : "Login";
+    document.body.style.background = visual ? "#000" : "#111";
+  });
 
-/* VISUAL MODE */
-document.getElementById("modeBtn").onclick=()=>{
-if(!isLoggedIn){
-alert("Login required");
-return;
-}
-mode = mode==="normal" ? "visual" : "normal";
-document.body.classList.toggle("visual");
-document.getElementById("modeBtn").innerText =
-mode==="visual" ? "Exit Mode" : "Visual Mode";
-};
+  // Channel arrows (desktop buttons)
+  arrows[0].addEventListener("click", () => {
+    bar.scrollBy({ left: -bar.clientWidth, behavior: "smooth" });
+  });
+  arrows[1].addEventListener("click", () => {
+    bar.scrollBy({ left: bar.clientWidth, behavior: "smooth" });
+  });
 
-/* CHANNELS */
-const channels=[
-{name:"Web",img:"https://picsum.photos/300?1"},
-{name:"Video",img:"https://picsum.photos/300?2"},
-{name:"Game",img:"https://picsum.photos/300?3"},
-{name:"Map",img:"https://picsum.photos/300?4"}
-];
+  // Swipe on channel bar
+  let startX = 0;
+  bar.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+  }, { passive: true });
 
-const bar=document.getElementById("channels");
+  bar.addEventListener("touchend", (e) => {
+    const endX = e.changedTouches[0].clientX;
+    if (startX - endX > 50) {
+      bar.scrollBy({ left: bar.clientWidth, behavior: "smooth" });
+    }
+    if (endX - startX > 50) {
+      bar.scrollBy({ left: -bar.clientWidth, behavior: "smooth" });
+    }
+  });
 
-channels.forEach((c,i)=>{
-let d=document.createElement("div");
-d.className="channel";
-d.innerText=c.name;
-d.onclick=()=>load(i);
-bar.appendChild(d);
+  // Search filter
+  search.addEventListener("input", () => {
+    const value = search.value.toLowerCase();
+    document.querySelectorAll(".channel").forEach(ch => {
+      ch.style.display = ch.innerText.toLowerCase().includes(value) ? "flex" : "none";
+    });
+  });
+
+  // Stack auto-cycle (only if .stack exists)
+  const stackItems = ["Sponsors", "Partners", "My Channels", "Downlines"];
+  let stackIndex = 0;
+  const stackEl = document.querySelector(".stack");
+
+  if (stackEl && stackEl.children[0]) {
+    setInterval(() => {
+      stackIndex = (stackIndex + 1) % stackItems.length;
+      stackEl.children[0].innerHTML = stackItems[stackIndex];
+    }, 5000);
+  }
+
+  // Followers counter
+  let followers = 2431;
+  const followersEl = document.getElementById("followers");
+  setInterval(() => {
+    followers++;
+    followersEl.innerHTML = followers;
+  }, 10000);
+
+  // Profile swipe
+  const profile = document.querySelector(".profile");
+  let sx = 0, sy = 0;
+
+  profile.addEventListener("touchstart", (e) => {
+    sx = e.touches[0].clientX;
+    sy = e.touches[0].clientY;
+  }, { passive: true });
+
+  profile.addEventListener("touchend", (e) => {
+    const dx = e.changedTouches[0].clientX - sx;
+    const dy = e.changedTouches[0].clientY - sy;
+
+    if (Math.abs(dx) > Math.abs(dy)) {
+      if (dx > 50) console.log("Previous My Channel");
+      if (dx < -50) console.log("Next My Channel");
+    } else {
+      if (dy > 50) console.log("Previous Downline");
+      if (dy < -50) console.log("Next Downline");
+    }
+  });
+
+  // Bookmark toggle
+  document.querySelectorAll(".btn").forEach(btn => {
+    let bookmarked = false;
+    btn.addEventListener("click", () => {
+      bookmarked = !bookmarked;
+      btn.innerHTML = bookmarked ? "★ Bookmarked" : "☆ Bookmark";
+    });
+  });
 });
-
-/* LOAD */
-function load(i){
-document.getElementById("name").innerText=channels[i].name;
-document.getElementById("img").src=channels[i].img;
-updateHex();
-}
-load(0);
-
-/* HEX */
-function makeHex(seed){
-let base=[...seed].reduce((a,c)=>a+c.charCodeAt(0),0);
-let letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-return (
-letters[base%26] +
-letters[(base/2)%26|0] +
-letters[(base/3)%26|0] +
-"-" + (base*9973).toString().slice(0,10)
-);
-}
-
-let history=[];
-
-function updateHex(){
-let hex=makeHex("user@email.com"+Date.now()+visitors);
-
-history.unshift(hex);
-if(history.length>3) history.pop();
-
-document.getElementById("hexBox").innerText=history.join("\n");
-generateQR();
-}
-
-/* QR */
-function generateQR(){
-document.getElementById("qr").innerHTML=
-`<img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(location.href)}">`;
-}
-
-/* VISITORS */
-let visitors=Number(localStorage.getItem("v")||0);
-visitors++;
-localStorage.setItem("v",visitors);
-document.getElementById("visitors").innerText="Visitors: "+visitors;
-
-/* MEDIA TOGGLE */
-function toggleMedia(){
-showQR=!showQR;
-
-document.getElementById("img").style.opacity=showQR?"0":"1";
-document.getElementById("qr").style.display=showQR?"flex":"none";
-
-if(showQR) generateQR();
-}
 </script>
 <script>
+const overlay=document.getElementById("settingsOverlay");
 
-  function generateSwitchKey(email, phone, name){
-let raw = email + phone + name;
-let hash = 0;
-
-for(let i=0;i<raw.length;i++){
-hash = (hash << 5) - hash + raw.charCodeAt(i);
-hash |= 0;
+document.getElementById("settingsBtn").onclick=()=>{
+overlay.classList.add("active");
 }
 
-return "FLX-" + Math.abs(hash);
+function closeSettings(){
+overlay.classList.remove("active");
 }
 </script>
-  <script>
-  const SCRIPT_URL =
-"https://script.google.com/macros/s/AKfycbxx74hchnVgsUF5IlfOWb5_wGGr8OmXtDdgOHUiCDZT/exec";
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-async function submitToSwitchboard(){
+<title>Funnel Link</title>
 
-const email = document.getElementById("email").value;
-const phone = document.getElementById("phone").value;
-const name = document.getElementById("name").value;
+<style>
 
-const payload = {
-email,
-phone,
-name,
-channel_title:"Web_Cast",
-schedule:"AUTO",
-schedule_links:"",
-downline_links:"",
-qr:"",
-page_link:location.href,
-profile_image:"https://picsum.photos/400",
-background:"",
-bg_view:"",
-primary_link:"",
-secondary_link:"",
-key: generateSwitchKey(email, phone, name)
-};
-
-await fetch(SCRIPT_URL,{
-method:"POST",
-body: JSON.stringify(payload)
-});
-
-alert("Saved to Switchboard ✔");
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
-  </script>
-  <script>
-    function sendVerificationCode(email){
 
-const code = Math.random().toString(36).substring(2,8).toUpperCase();
+body{
+background:#111;
+color:#fff;
+ width:98%
+}
 
-CacheService.getScriptCache().put(email, code, 600);
+/* TOP BAR */
 
-/* send email */
-MailApp.sendEmail(email,
-"Your Funnel Login Code",
-"Your verification code is: " + code
-);
+.topbar{
 
-return json({status:"code_sent"});
+display:flex;
+align-items:center;
+gap:6px;
+
+padding:8px;
+
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(10px);
+
+position:sticky;
+top:0;
+
+z-index:100;
+
+}
+
+#clock{
+min-width:12px;
+font-size:12px;
+}
+
+#search{
+flex:1;
+
+padding:10px;
+
+border:none;
+border-radius:10px;
+
+background:rgba(255,255,255,.15);
+
+color:white;
+
+}
+
+.iconBtn{
+
+padding:10px 14px;
+
+border:none;
+
+border-radius:10px;
+
+background:rgba(255,255,255,.15);
+
+color:white;
+
+}
+
+/* CHANNEL BAR */
+
+.channelWrapper{
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
+
+padding:6px;
+
+}
+
+.arrow{
+
+font-size:24px;
+
+cursor:pointer;
+
+padding:5px 12px;
+
+}
+.channelBar{
+flex:1;
+display:flex;
+overflow-x:auto;
+gap:8px;
+scroll-behavior:smooth;
+scroll-snap-type:x mandatory;
+-webkit-overflow-scrolling:touch;
+scrollbar-width:none;
+}
+
+.channelBar::-webkit-scrollbar{
+display:none;
+
+}
+
+.channel{
+min-width:98%;
+scroll-snap-align:center;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:8px;
+border-radius:20px;
+font-size:18px;
+font-weight:bold;
+background-color:none;
+}
+
+/* STACK */
+
+.stack{
+
+display:flex;
+
+justify-content:center;
+
+gap:8px;
+
+padding:8px;
+
+opacity:.8;
+
+}
+
+.stack div{
+
+padding:8px 12px;
+
+border-radius:15px;
+
+background:#333;
+
+}
+
+/* PROFILE */
+
+.profile{
+
+width:75%;
+
+max-width:500px;
+
+margin:12px auto;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(10px);
+
+padding:14px;
+
+border-radius:20px;
+
+text-align:center;
+
+}
+
+#profileImg{
+
+width:65%;
+hieght:65%;
+
+aspect-ratio:1;
+
+border-radius:20px;
+
+object-fit:cover;
+
+}
+
+.btn{
+
+display:block;
+
+margin:12px auto;
+
+padding:14px;
+
+border-radius:12px;
+
+text-decoration:none;
+
+width:90%;
+
+}
+
+.primary{
+
+background:#ddd;
+
+color:#111;
+
+}
+
+.secondary{
+
+background:#888;
+
+color:white;
+
+}
+ #modeBtn{
+  width:34px;
+  height:24px;
+  Border-radius:5px;
+  background-color:white;
+ }
+
+/* DOWNLINES */
+
+.downlines{
+
+display:flex;
+
+justify-content:center;
+
+gap:12px;
+
+margin-top:20px;
+
+}
+
+.down{
+
+width:80px;
+
+height:80px;
+
+border-radius:15px;
+
+background:#444;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+}
+ .settingsBtn{
+width:30px;
+height:30px;
+border-radius:50%;
+font-size:20px;
+text-color:white;
+z-index:5000;
+}
+
+.settings-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.65);
+backdrop-filter:blur(10px);
+display:none;
+justify-content:flex-end;
+z-index:9999;
+}
+
+.settings-overlay.active{
+display:flex;
+}
+
+.settings-panel{
+width:420px;
+max-width:100%;
+height:100%;
+overflow:auto;
+background:#111;
+padding:25px;
+}
+
+.settings-panel input,
+.settings-panel textarea{
+width:100%;
+margin:8px 0;
+padding:12px;
+border-radius:10px;
+background:#222;
+color:white;
+border:1px solid #444;
+}
+
+.close-btn{
+float:right;
+font-size:22px;
+}
+
+/* NAV */
+
+.bottomNav{
+display:flex;
+
+justify-content:space-between;
+
+padding:20px;
+
+}
+  
+ .stackItem.active{
+  background:#666;
+  transform: scale(1.03);
+}
+
+
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+
+<div id="clock"></div>
+
+<button class="settingsBtn">⚙</button>
+
+<input id="search"
+placeholder="Search #game_link #MovieLinks">
+
+<button id="modeBtn">
+
+Login
+
+</button>
+
+</div>
+
+<div  class="settings-overlay">
+
+<button class="close-btn" onclick="closeSettings()">✕</button>
+
+<h1>Funnel Link Settings</h1>
+
+<!-- Theme -->
+
+<h2>Theme</h2>
+
+<label>Primary Color</label>
+<input type="color" id="primary">
+
+<label>Secondary Color</label>
+<input type="color" id="secondary">
+
+<label>Background</label>
+<input type="color" id="background">
+
+<label>Card</label>
+<input type="color" id="card">
+
+<label>Text</label>
+<input type="color" id="text">
+
+<label>Gray</label>
+<input type="color" id="gray">
+
+<label>Glass Transparency</label>
+<input type="range" id="glass" min="0" max="1" step=".05">
+
+<label>Frost Transparency</label>
+<input type="range" id="frost" min="0" max="1" step=".05">
+
+<hr>
+
+<h2>Profile</h2>
+
+<input id="profileName" placeholder="Profile Name">
+
+<input id="profilePicture" placeholder="Profile Picture URL">
+
+<input id="backgroundImage" placeholder="Background Image URL">
+
+<input id="schedule" placeholder="Schedule">
+
+<input id="scheduleLink" placeholder="Schedule Link">
+
+<input id="primaryButton" placeholder="Primary Button Link">
+
+<hr>
+
+<h2>Media</h2>
+
+<input id="videoLink" placeholder="Video URL">
+
+<input id="mp3Link" placeholder="Podcast / MP3 URL">
+
+<input id="livestreamLink" placeholder="Live Stream URL">
+
+<input id="discordLink" placeholder="Discord Invite">
+
+<input id="slackLink" placeholder="Slack Workspace">
+
+<hr>
+
+<h2>NFT</h2>
+
+<input id="openseaCollection" placeholder="OpenSea Collection URL">
+
+<input id="magicedenCollection" placeholder="Magic Eden URL">
+
+<input id="raribleCollection" placeholder="Rarible URL">
+
+<hr>
+
+<button onclick="saveTheme()">Save</button>
+
+<button onclick="loadTheme()">Load</button>
+
+<button onclick="resetTheme()">Reset</button>
+
+</div>
+
+</div>
+
+<div class="channelWrapper">
+
+<div class="arrow">&lt;</div>
+
+<div class="channelBar" id="channelBar">
+  <!-- anything #___Links, should be searchable, only one #___Links viewable per scroll,swipe scroll bar to change channel -->
+<div class="channel">#WebLinks</div>
+<div class="channel">#GameLinks</div>
+<div class="channel">#MovieLinks</div>
+<div class="channel">#PodcastLinks</div>
+<div class="channel">#MusicLinks</div>
+<div class="channel">#MapLinks</div>
+<div class="channel">#JobLinks</div>
+<div class="channel">#PrivateLinks</div>
+
+</div>
+
+<div class="arrow">&gt;</div>
+
+</div>
+  
+<!--
+<div class="stack"> -->
+  <!-- Auto cycle sponsors after downlines   -->
+  <!--<div>Sponsors</div>-->
+  <!--Auto cycle Partners After My channels -->
+  <!--<div>Partners</div>-->
+  <!-- gesture swipe left and right in profile class container area, to cycle through My Channels (or My funnel_Link stacks) -->
+  <!--<div>My Channels</div>-->
+  <!-- gesture swipe up and down in profile class container area to cycle through Downlines -->
+  <!--<div>Downlines</div>
+  </div> 
+  -->
+
+<div class="profile">
+  <!-- press down and swipe Followers div to activate screen x,y area press downs for day, week, and month. look should resemble hot areas with number of presses in feild containers background or buttons press ans swipe to change view until normal view press buttons follow funnel  -->
+  
+<div>
+Followers
+<h2 id="followers">
+  <!--double press numbers to download pdf of the day week or month followers view numbers only in followers mode --></!--press-->
+2431
+</h2>
+</div>
+
+<!-- press any button to book mark page ( buttons open new window ) double tap hold to unbook mark, press down and swipe up on profile image to view qr code (only view stored qr code if available then changing qr code never plublic personal code )-->
+<img
+id="profileImg"
+src="https://picsum.photos/500">
+
+<h2>
+
+John Doe
+
+</h2>
+
+<p>
+
+Game_Link
+
+</p>
+
+<p>
+
+Showtime
+
+03:42:21
+
+</p>
+
+<a
+href="#"
+class="btn primary">
+
+Visit Website
+
+</a>
+
+<a
+href="#"
+class="btn secondary">
+
+Instagram
+
+</a>
+  <!--
+
+<div class="downlines">
+
+<div class="down">
+
+A
+
+</div>
+
+<div class="down">
+
+B
+
+</div>
+
+<div class="down">
+
+C
+
+</div>
+  -->
+
+</div>
+
+</div>
+
+<div class="bottomNav">
+  <!--
+<div>
+
+◀ Previous
+
+</div>
+
+<div>
+
+Next ▶
+
+</div>
+-->
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const bar = document.getElementById("channelBar");
+  const arrows = document.querySelectorAll(".arrow");
+  const search = document.getElementById("search");
+  const modeBtn = document.getElementById("modeBtn");
+  const clock = document.getElementById("clock");
+
+  // Clock
+  const updateClock = () => {
+    clock.textContent = new Date().toLocaleTimeString();
+  };
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  // Topbar mode toggle
+  let visual = false;
+  modeBtn.addEventListener("click", () => {
+    visual = !visual;
+    modeBtn.innerHTML = visual ? "Exit" : "Login";
+    document.body.style.background = visual ? "#000" : "#111";
+  });
+
+  // Channel arrows (desktop buttons)
+  arrows[0].addEventListener("click", () => {
+    bar.scrollBy({ left: -bar.clientWidth, behavior: "smooth" });
+  });
+  arrows[1].addEventListener("click", () => {
+    bar.scrollBy({ left: bar.clientWidth, behavior: "smooth" });
+  });
+
+  // Swipe on channel bar
+  let startX = 0;
+  bar.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+  }, { passive: true });
+
+  bar.addEventListener("touchend", (e) => {
+    const endX = e.changedTouches[0].clientX;
+    if (startX - endX > 50) {
+      bar.scrollBy({ left: bar.clientWidth, behavior: "smooth" });
     }
-  </script>
-  <script>
-    function logLogin(email, success){
-
-const sheet = SpreadsheetApp.getActiveSpreadsheet()
-.getSheetByName("LoginHistory");
-
-const ip = "UNKNOWN"; // Apps Script does not reliably expose IP
-
-sheet.appendRow([
-new Date(),
-email,
-ip,
-success
-]);
-
+    if (endX - startX > 50) {
+      bar.scrollBy({ left: -bar.clientWidth, behavior: "smooth" });
     }
-    <script>
-      function savePasskey(email, credential){
+  });
 
-const sheet = SpreadsheetApp.getActiveSpreadsheet()
-.getSheetByName("Devices");
+  // Search filter
+  search.addEventListener("input", () => {
+    const value = search.value.toLowerCase();
+    document.querySelectorAll(".channel").forEach(ch => {
+      ch.style.display = ch.innerText.toLowerCase().includes(value) ? "flex" : "none";
+    });
+  });
 
-sheet.appendRow([
-email,
-JSON.stringify(credential),
-new Date()
-]);
+  // Stack auto-cycle (only if .stack exists)
+  const stackItems = ["Sponsors", "Partners", "My Channels", "Downlines"];
+  let stackIndex = 0;
+  const stackEl = document.querySelector(".stack");
 
-return json({status:"passkey_saved"});
-      }
-    <script>
-      function evaluateRisk(email, ip, device){
+  if (stackEl && stackEl.children[0]) {
+    setInterval(() => {
+      stackIndex = (stackIndex + 1) % stackItems.length;
+      stackEl.children[0].innerHTML = stackItems[stackIndex];
+    }, 5000);
+  }
 
-const sheet = SpreadsheetApp.getActiveSpreadsheet()
-.getSheetByName("LoginHistory");
+  // Followers counter
+  let followers = 2431;
+  const followersEl = document.getElementById("followers");
+  setInterval(() => {
+    followers++;
+    followersEl.innerHTML = followers;
+  }, 10000);
 
-const rows = sheet.getDataRange().getValues();
+  // Profile swipe
+  const profile = document.querySelector(".profile");
+  let sx = 0, sy = 0;
 
-let last = rows.reverse().find(r => r[1] === email);
+  profile.addEventListener("touchstart", (e) => {
+    sx = e.touches[0].clientX;
+    sy = e.touches[0].clientY;
+  }, { passive: true });
 
-if(!last) return "NEW_DEVICE";
+  profile.addEventListener("touchend", (e) => {
+    const dx = e.changedTouches[0].clientX - sx;
+    const dy = e.changedTouches[0].clientY - sy;
 
-if(last[2] !== ip) return "IP_CHANGED";
-
-return "OK";
-      }
-  </script>
-  <script>
-    function openProfile(profileID){
-
-const url =
-"https://mattyd1989777-coder.github.io/Funnel_Links/?profile="
-+ profileID;
-
-window.location.href = url;
+    if (Math.abs(dx) > Math.abs(dy)) {
+      if (dx > 50) console.log("Previous My Channel");
+      if (dx < -50) console.log("Next My Channel");
+    } else {
+      if (dy > 50) console.log("Previous Downline");
+      if (dy < -50) console.log("Next Downline");
     }
-  </script>
+  });
+
+  // Bookmark toggle
+  document.querySelectorAll(".btn").forEach(btn => {
+    let bookmarked = false;
+    btn.addEventListener("click", () => {
+      bookmarked = !bookmarked;
+      btn.innerHTML = bookmarked ? "★ Bookmarked" : "☆ Bookmark";
+    });
+  });
+});
+</script>
+<script>
+const overlay=document.getElementById("settingsOverlay");
+
+document.getElementById("settingsBtn").onclick=()=>{
+overlay.classList.add("active");
+}
+
+function closeSettings(){
+overlay.classList.remove("active");
+}
+</script>
 </body>
 </html>
